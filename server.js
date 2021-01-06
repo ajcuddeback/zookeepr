@@ -7,6 +7,9 @@ const path = require('path');
 
 const app = express();
 
+// this will serve the brower all files in public over http so that there it can read the styling, js, and other html pages
+app.use(express.static('public'));
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
@@ -116,6 +119,19 @@ app.post('/api/animals', (req, res) => {
         const animal = createNewAnimal(req.body, animals);
         res.json(animal);
     };
+});
+
+app.get('/', (req, res) => {
+    // res.sendFile() will respond with a html page to display in the browser, 
+    // this will tellthem where to fine the file we want our server to read and send it back to client
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'))
+});
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
 
 app.listen(PORT, () => {
