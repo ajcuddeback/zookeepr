@@ -17,6 +17,9 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
+
+
+// Functions for filtering and validating information
 function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
         return false;
@@ -90,6 +93,8 @@ function createNewAnimal(body, animalsArray) {
     return animal;
 }
 
+
+//Requests
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
@@ -121,6 +126,8 @@ app.post('/api/animals', (req, res) => {
     };
 });
 
+
+// serving the front en code to server
 app.get('/', (req, res) => {
     // res.sendFile() will respond with a html page to display in the browser, 
     // this will tellthem where to fine the file we want our server to read and send it back to client
